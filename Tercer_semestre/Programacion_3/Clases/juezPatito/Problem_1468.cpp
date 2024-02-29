@@ -1,27 +1,31 @@
 #include <iostream>
 #include <vector>
+#include <set>
 using namespace std;
-void CribaPrimos(int n, vector<bool>& primos);
 
 int main()
 {
 	int a,b;
-	
-	vector<bool>primos(9992,true);
-	primos[0] = primos[1] = false;
-	CribaPrimos(9992, primos);
 	while (cin >> a >> b)
 	{
 		int maxNumber = 0;
 		int maxDivisor = 0;
 		for (int i = b; i >=a ; i--)
 		{
-			int divisores = 0;
-			for (int j = 2; j <= i/2; j++)
+			set<int> s;
+			int j = 2;
+			int n = i;
+			while (n != 1)
 			{
-				if (i % j == 0 && primos[j])
-					divisores++;
+				if (n % j == 0)
+				{
+					n = n / j;
+					s.insert(j);
+				}
+				else
+					j++;
 			}
+			int divisores = s.size();
 			if (divisores > maxDivisor)
 			{
 				maxDivisor = divisores;
@@ -32,19 +36,5 @@ int main()
 	}
 		
 	return 0;
+	
 }
-void CribaPrimos(int n, vector<bool>& primos)
-{
-	int i = 2;
-	while ( i*i <= n)
-	{
-		if (primos[i])
-		{
-			for (int j = i * i; j <= n; j += i)
-				primos[j] = false;
-		}
-		i++;
-
-	}
-}
-
