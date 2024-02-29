@@ -6,30 +6,38 @@ using namespace std;
 int main()
 {
 	int a,b;
+	vector<bool>multiplos(100001,true);
 	while (cin >> a >> b)
 	{
 		int maxNumber = 0;
 		int maxDivisor = 0;
 		for (int i = b; i >=a ; i--)
 		{
-			set<int> s;
-			int j = 2;
-			int n = i;
-			while (n != 1)
+			if (multiplos[i])
 			{
-				if (n % j == 0)
+				set<int> s;
+				int j = 2;
+				int n = i;
+				int multiplo = 1;
+				while (n != 1)
 				{
-					n = n / j;
-					s.insert(j);
+					if (n % j == 0)
+					{	
+						multiplo *= j;
+						multiplos[multiplo] = false;
+						n = n / j;
+						s.insert(j);
+					}
+					else
+						j++;
 				}
-				else
-					j++;
-			}
-			int divisores = s.size();
-			if (divisores > maxDivisor)
-			{
-				maxDivisor = divisores;
-				maxNumber = i;
+				int divisores = s.size();
+				if (divisores > maxDivisor)
+				{
+					maxDivisor = divisores;
+					maxNumber = i;
+				}
+		
 			}
 		}
 		printf("%d tiene %d divisores\n", maxNumber, maxDivisor);
