@@ -6,19 +6,20 @@ using namespace std;
 int main()
 {
 	int a,b;
-	vector<bool>multiplos(100001,true);
 	while (cin >> a >> b)
 	{
+		vector<bool>multiplos(b + 1,true);
 		int maxNumber = 0;
 		int maxDivisor = 0;
-		for (int i = b; i >=a ; i--)
+		for (int i = b; i >= a ; i--)
 		{
+
+			int multiplo = 1;
 			if (multiplos[i])
 			{
 				set<int> s;
 				int j = 2;
 				int n = i;
-				int multiplo = 1;
 				while (n != 1)
 				{
 					if (n % j == 0)
