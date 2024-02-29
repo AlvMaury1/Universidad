@@ -1,32 +1,30 @@
-#include <stdio.h>
 #include <iostream>
+#include <vector>
 using namespace std;
-void CribaPrimos(int n, bool primos[]);
+void CribaPrimos(int n, vector<bool>& primos);
 
 int main()
 {
-	int numPrueba, a, b, sum;
-	const int limit = 100002; 
-	bool primos[limit];
-	fill_n(primos, limit, true);
-	primos[0] = primos[1] = false;
-	CribaPrimos(limit, primos);
+	int numPrueba,a,b;
 	cin >> numPrueba;
 	
 	for (int i = 0; i < numPrueba; i++)
 	{
 		cin >> a >> b;
-		sum = 0;
+		vector<bool>primos(b+1,true);
+		primos[0] = primos[1] = false;
+		int sum = 0;
+		CribaPrimos(b + 1, primos);
 		for (int j = a; j <= b; j++)
 		{
 			if (primos[j])
 				sum += j;
 		}
-		printf("%ld\n", sum);
+	cout << sum << endl;
 	}	
 	return 0;
 }
-void CribaPrimos(int n, bool primos[])
+void CribaPrimos(int n, vector<bool>& primos)
 {
 	for (int i = 2; i * i <= n; ++i)
 	{
